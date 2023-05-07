@@ -47,7 +47,10 @@ class Module(models.Model):
 
 class Content(models.Model):
     module = models.ForeignKey(
-        Module, related_name="contents", on_delete=models.CASCADE
+        Module,
+        related_name="contents",
+        on_delete=models.CASCADE,
+        limit_choices_to={"model__in": ("text", "video", "image", "file")},
     )
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
